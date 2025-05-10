@@ -3,20 +3,17 @@ export class Exam {
         this.weight = weight;
         this.answer = answer;
         this.disciplina = disciplina;
+        this._answers = [];
     }
     add(exam) {
-        var _a;
-        (_a = this._answers) === null || _a === void 0 ? void 0 : _a.push(exam);
+        this._answers.push(exam);
     }
     avg() {
-        var _a;
         let contador = 0;
-        let n = 0;
-        (_a = this._answers) === null || _a === void 0 ? void 0 : _a.forEach(element => {
+        this._answers.forEach(element => {
             contador += this.pontuacao(element);
-            n += 1;
         });
-        return contador / n;
+        return contador / this._answers.length;
     }
     pontuacao(resposta) {
         let pontuacao = 0;
@@ -30,25 +27,23 @@ export class Exam {
     max(count) {
         var _a;
         const notas = (_a = this._answers) === null || _a === void 0 ? void 0 : _a.map(element => this.pontuacao(element));
-        notas === null || notas === void 0 ? void 0 : notas.sort((a, b) => a - b);
-        return notas === null || notas === void 0 ? void 0 : notas.slice(-count);
+        notas.sort((a, b) => a - b);
+        return notas.slice(-count);
     }
     min(count) {
         var _a;
         const notas = (_a = this._answers) === null || _a === void 0 ? void 0 : _a.map(element => this.pontuacao(element));
-        notas === null || notas === void 0 ? void 0 : notas.sort((a, b) => a - b);
-        return notas === null || notas === void 0 ? void 0 : notas.slice(0, count);
+        notas.sort((a, b) => a - b);
+        return notas.slice(0, count);
     }
     lt(limit) {
-        var _a;
-        let grades = (_a = this._answers) === null || _a === void 0 ? void 0 : _a.map((answer) => this.pontuacao(answer));
-        grades === null || grades === void 0 ? void 0 : grades.sort().reverse();
-        return grades === null || grades === void 0 ? void 0 : grades.filter((grade) => grade < limit);
+        let grades = this._answers.map((answer) => this.pontuacao(answer));
+        grades.sort().reverse();
+        return grades.filter((grade) => grade < limit);
     }
     gt(limit) {
-        var _a;
-        let grades = (_a = this._answers) === null || _a === void 0 ? void 0 : _a.map((answer) => this.pontuacao(answer));
-        grades === null || grades === void 0 ? void 0 : grades.sort().reverse();
-        return grades === null || grades === void 0 ? void 0 : grades.filter((grade) => grade > limit);
+        let grades = this._answers.map((answer) => this.pontuacao(answer));
+        grades.sort().reverse();
+        return grades.filter((grade) => grade > limit);
     }
 }

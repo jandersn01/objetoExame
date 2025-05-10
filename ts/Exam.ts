@@ -5,27 +5,26 @@ export class Exam{
   private disciplina: string; //nome da disciplina, se exam é o exame de UMA DISCIPLINA
   private weight: Weight; // O Peso
   private answer: Answer; // A resposta oficial
-  private _answers: Answer[]| undefined // Um array de objetos do tipo Answer, cada objeto vai corresponder a uma prova de um aluno contendo nome e resposta do aluno
+  private _answers: Answer[] // Um array de objetos do tipo Answer, cada objeto vai corresponder a uma prova de um aluno contendo nome e resposta do aluno
   
   constructor(disciplina: string, weight: Weight,answer: Answer){
     this.weight = weight 
     this.answer = answer 
     this.disciplina = disciplina 
+    this._answers = []
   }
 
   add (exam: Answer): void{
-    this._answers?.push(exam)
+    this._answers.push(exam)
   }
 
   avg():number{
     let contador: number = 0
-    let n = 0
-    this._answers?.forEach(element =>{
+    this._answers.forEach(element =>{
       contador += this.pontuacao(element)
-      n += 1
     }
     )
-    return contador/n 
+    return contador/this._answers.length
   }
 
   pontuacao(resposta: Answer): number{
@@ -38,37 +37,37 @@ export class Exam{
     return pontuacao;
   }
 
- max(count: number): number[] | undefined{
-  const notas: number[] | undefined = this._answers?.map(element => this.pontuacao(element))
+ max(count: number): number[]{
+  const notas: number[]= this._answers?.map(element => this.pontuacao(element))
 
-  notas?.sort((a,b) => a-b)
+  notas.sort((a,b) => a-b)
 
-  return notas?.slice(-count)
+  return notas.slice(-count)
  }
 
- min(count: number): number[] | undefined{
-  const notas: number[] | undefined = this._answers?.map(element => this.pontuacao(element))
+ min(count: number): number[]{
+  const notas: number[]= this._answers?.map(element => this.pontuacao(element))
 
-  notas?.sort((a,b) => a-b)
+  notas.sort((a,b) => a-b)
 
-  return notas?.slice(0,count)
+  return notas.slice(0,count)
 
  }
 
- lt(limit:number) {
-  let grades = this._answers?.map((answer) => this.pontuacao(answer));
+ lt(limit:number): number[] {
+  let grades = this._answers.map((answer) => this.pontuacao(answer));
 
-  grades?.sort().reverse();
+  grades.sort().reverse();
 
-  return grades?.filter((grade) => grade < limit);
+  return grades.filter((grade) => grade < limit);
 }
 
-gt(limit: number) {
-  let grades = this._answers?.map((answer) => this.pontuacao(answer));
+gt(limit: number): number[]{
+  let grades = this._answers.map((answer) => this.pontuacao(answer));
 
-  grades?.sort().reverse();
+  grades.sort().reverse();
 
-  return grades?.filter((grade) => grade > limit);
+  return grades.filter((grade) => grade > limit);
 }
 
 
