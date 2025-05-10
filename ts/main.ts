@@ -10,9 +10,18 @@ const prova1 = new Answer(["a","b","c","d","e"], "Elaine")
 const prova2 = new Answer(["a","c","c","d","e"], "Renato")
 const prova3 = new Answer(["a","d","a","d","e"], "Francisco")
 
+console.log(provadematematica.add(prova1))
+console.log(provadematematica.add(prova2))
+console.log(provadematematica.add(prova3)) 
 
 console.log(provadematematica.pontuacao(prova1))
 console.log(provadematematica.pontuacao(prova2))
 console.log(provadematematica.pontuacao(prova3))
 
-console.log(provadematematica.answers)
+console.log(provadematematica.avg())
+console.log(provadematematica.gt(10))
+console.log(provadematematica.max(4))
+console.log(provadematematica.min(6))
+
+
+
